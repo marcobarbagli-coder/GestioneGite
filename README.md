@@ -1,12 +1,12 @@
 # Gestione Gite Scolastiche
 
-## 📌 Descrizione
+##  Descrizione
 Questo progetto è un’applicazione Java per la gestione delle gite scolastiche.  
 Permette di inserire e gestire itinerari con informazioni come destinazione, durata, tipo di gita e numero minimo e massimo di partecipanti.
 
 ---
 
-## ⚙️ Tecnologie utilizzate
+##  Tecnologie utilizzate
 - Java
 - Java Swing 
 - File binari / Database 
@@ -14,7 +14,7 @@ Permette di inserire e gestire itinerari con informazioni come destinazione, dur
 
 ---
 
-## 🚀 Funzionalità
+##  Funzionalità
 - Inserimento nuova gita
 - Visualizzazione elenco gite
 - Modifica ed eliminazione (se presente)
@@ -22,7 +22,7 @@ Permette di inserire e gestire itinerari con informazioni come destinazione, dur
 
 ---
 
-## 👥 Autori
+##  Autori
 -Barbagli Marco  
 -Bruschi Lorenzo 
 -Sbragi Niccolo
