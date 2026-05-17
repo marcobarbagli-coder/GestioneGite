@@ -33,7 +33,7 @@ public class Itinerario {
         this.annoCorso = annoCorso;
         this.optional = optional;
         this.prenotato = prenotato;
-        this.numeroPartecipanti=numeroPartecipanti;
+        this.numeroPartecipanti = numeroPartecipanti;
     }
 
 
