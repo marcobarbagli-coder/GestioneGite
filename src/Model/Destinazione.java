@@ -7,7 +7,7 @@ public class Destinazione
     private String regione;
     private String nazione;
 
-    public Destinazione(int id, String nome, String regione, String nazione) 
+    public Destinazione(String nome, String regione, String nazione) 
     {
         this.id = contatore;
         contatore++;
