@@ -33,15 +33,15 @@ public class Destinazione
     }
 
     
-    public setNome(String Nome){
+    public void setNome(String nome){
         this.nome=nome;
     }
 
-    public  setRegione(String regione) {
+    public void setRegione(String regione) {
         this.regione = regione;
     }
 
-    public  setNazione(String nazione) {
+    public void setNazione(String nazione) {
         this.nazione = nazione;
     }
     @Override
