@@ -49,6 +49,6 @@ public class Alunno {
 
     @Override
     public String toString() {
-        return nome + " " + cognome + " - " + classe;
+        return nome + " - " + cognome + " - " + classe;
     }
 }
