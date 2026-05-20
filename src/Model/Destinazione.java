@@ -7,7 +7,7 @@ public class Destinazione
     private String regione;
     private String nazione;
 
-    public Destinazione(int id, String nome, String regione, String nazione) 
+    public Destinazione(String nome, String regione, String nazione) 
     {
         this.id = contatore;
         contatore++;
@@ -33,15 +33,15 @@ public class Destinazione
     }
 
     
-    public setNome(String Nome){
+    public void setNome(String nome){
         this.nome=nome;
     }
 
-    public  setRegione(String regione) {
+    public void setRegione(String regione) {
         this.regione = regione;
     }
 
-    public  setNazione(String nazione) {
+    public void setNazione(String nazione) {
         this.nazione = nazione;
     }
     @Override

@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 
 public class Prenotazione {
@@ -143,4 +144,6 @@ public class Prenotazione {
                "\nAcconto: " + calcolaAcconto() +
                "\nAnnullata: " + annullata;
     }
+
+
 }
