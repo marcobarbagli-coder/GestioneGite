@@ -13,9 +13,12 @@ public class MainFrame extends JFrame {
 
     private JTextArea areaOutput;
 
+
 //costruttore:
 
     public MainFrame() {
+
+//costruzione interfaccia:
 
         setTitle("Gite Scolastiche");                   // titolo finestra
         setSize(800, 500);                              // dimensioni
@@ -23,7 +26,7 @@ public class MainFrame extends JFrame {
         setLocationRelativeTo(null);                    // posizione centro schermo
         setLayout(new BorderLayout());                  // layout principale
 
-//costruzione interfaccia:
+
 
     //pannello menu:
 
@@ -109,8 +112,8 @@ public class MainFrame extends JFrame {
                 System.exit(0);
             }
         });
-
-
+  
+       
     //visibilita
 
         setVisible(true);
