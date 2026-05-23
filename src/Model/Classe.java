@@ -1,7 +1,9 @@
+//intera classe realizzata da Bucsai Alex
 import java.util.ArrayList;
 
 public class Classe {
 
+//attributi:
     private int id;
     private String nome;
     private int anno;
@@ -10,6 +12,7 @@ public class Classe {
     private ArrayList<Prenotazione> prenotazioni;
 
 
+//costruttore:
     public Classe(int id, String nome, int anno) {
         this.id = id;
         this.nome = nome;
@@ -19,11 +22,13 @@ public class Classe {
     }
 
 
-    // aggiungi alunno
+//metodi propri della classe:
+
+    // aggiunta di un alunno
     public void aggiungiAlunno(Alunno a) {
         alunni.add(a);
     }
-    // rimuovi alunno
+    // rimuovozione di un alunno
     public void rimuoviAlunno(Alunno a) {
         alunni.remove(a);
     }
@@ -43,7 +48,7 @@ public class Classe {
 
 
 
-
+//metodi getter e setter:
     public int getId() {
         return id;
     }
@@ -72,6 +77,7 @@ public class Classe {
         this.alunni = alunni;
     }
 
+//metodo toString:
     @Override
     public String toString() {
         return "Classe{" +
