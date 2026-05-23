@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+import model.Alunno;
 public class AlunnoService {
 
     private ArrayList<Alunno> alunni;

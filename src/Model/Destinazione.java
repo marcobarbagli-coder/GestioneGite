@@ -1,4 +1,6 @@
 //intera classe realizzata da Barbagli Marco 
+
+
 public class Destinazione 
 {
     private static int contatore = 1;
