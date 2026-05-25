@@ -24,7 +24,7 @@ public class PanelAlunni extends JPanel {
 
 //costruttore:
 
-    public PanelAlunni() {
+    public PanelAlunni(AlunnoService alunnoService) {
 
 //costruzione interfaccia:
 
@@ -156,6 +156,10 @@ public class PanelAlunni extends JPanel {
 
             pulisciCampi();
         });
+    }
+
+    public PanelAlunni() {
+
     }
 
 

@@ -23,7 +23,7 @@ public class PanelPrenotazione extends JPanel {
 
     // ---------------- COSTRUTTORE ----------------
 
-    public PanelPrenotazione() {
+    public PanelPrenotazione(PrenotazioneService prenotazioneService, AlunnoService alunnoService, ItinerarioService itinerarioService) {
 
         setLayout(new BorderLayout());
 
