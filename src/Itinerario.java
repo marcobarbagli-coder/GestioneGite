@@ -1,8 +1,8 @@
 //intera classe realizzata da Bucsai Alex
+
 import java.io.Serializable;
 
 public class Itinerario implements Serializable{
-
 
 
 //attributi:
@@ -125,22 +125,21 @@ public class Itinerario implements Serializable{
     }
 
 
-//metodo toString:
     @Override
     public String toString() {
-        return "Itinerario{" +
-                "id=" + id +
-                ", destinazione=" + destinazione +
-                ", giorni=" + giorni +
-                ", tipo='" + tipo + '\'' +
-                ", descrizione='" + descrizione + '\'' +
-                ", minPartecipanti=" + minPartecipanti +
-                ", maxPartecipanti=" + maxPartecipanti +
-                ", costo=" + costo +
-                ", annoCorso=" + annoCorso +
-                ", optional='" + optional + '\'' +
-                ", prenotato=" + prenotato +
-                '}';
+        return "Itinerario[" + 
+            "id=" + id + 
+            ", destinazione=" + destinazione + 
+            ", giorni=" + giorni + 
+            ", tipo='" + tipo + '\'' + 
+            ", descrizione='" + descrizione + '\'' + 
+            ", minPartecipanti=" + minPartecipanti + 
+            ", maxPartecipanti=" + maxPartecipanti + 
+            ", costo=" + costo +
+            ", annoCorso=" + annoCorso + 
+            ", optional='" + optional + '\'' + 
+            ", prenotato=" + prenotato +
+            "]";
     }
 }
 

@@ -1,6 +1,6 @@
 //intera classe realizzata da Bucsai Alex
 
-
+//importazione librerie:
 import java.util.ArrayList;
 
 public class Classe {
@@ -10,8 +10,8 @@ public class Classe {
     private String nome;
     private int anno;
 
-    private ArrayList<Alunno> alunni;
-    private ArrayList<Prenotazione> prenotazioni;
+    private ArrayList<Alunno> alunni;               //lista degli alunni della classe
+    private ArrayList<Prenotazione> prenotazioni;   //lista deòòe prenotazioni effettuate dalla classe(solo la classe può prenotare, non il singolo alunno)
 
 
 //costruttore:
@@ -26,11 +26,9 @@ public class Classe {
 
 //metodi propri della classe:
 
-    // aggiunta di un alunno
     public void aggiungiAlunno(Alunno a) {
         alunni.add(a);
     }
-    // rimuovozione di un alunno
     public void rimuoviAlunno(Alunno a) {
         alunni.remove(a);
     }
@@ -39,11 +37,10 @@ public class Classe {
         return alunni.size();
     }
 
-    // aggiungi prenotazione
+
     public void aggiungiPrenotazione(Prenotazione p) {
         prenotazioni.add(p);
     }
-    // rimuovi prenotazione
     public void rimuoviPrenotazione(Prenotazione p) {
         prenotazioni.remove(p);
     }
@@ -79,14 +76,13 @@ public class Classe {
         this.alunni = alunni;
     }
 
-//metodo toString:
     @Override
     public String toString() {
-        return "Classe{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", anno=" + anno +
-                ", alunni=" + alunni +
-                '}';
+        return "Classe[" + 
+        "id=" + id + 
+        ", nome='" + nome + '\'' + 
+        ", anno=" + anno + 
+        ", alunni=" + alunni + 
+        "]";
     }
 }
