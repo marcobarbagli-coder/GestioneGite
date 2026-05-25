@@ -1,7 +1,7 @@
-
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Prenotazione {
+public class Prenotazione implements Serializable {
 
     private int id;
 
