@@ -5,6 +5,7 @@ public class PanelAlunni extends JPanel {
 
 //componenti:
 
+        //labels:
     private JLabel lblId;
     private JLabel lblNome;
     private JLabel lblCognome;
