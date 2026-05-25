@@ -1,8 +1,12 @@
+
+//intera classe realizzata da Barbagli Marco
+import java.io.Serializable;
+
 //intera classe realizzata da Barbagli Marco 
 
 
-public class Destinazione 
-{
+
+public class Destinazione implements Serializable{
     private static int contatore = 1;
     private int id;
     private String nome;

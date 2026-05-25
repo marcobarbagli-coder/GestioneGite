@@ -1,4 +1,5 @@
-public class Alunno {
+import java.io.Serializable;
+public class Alunno implements Serializable {
 
     private int id;
 
