@@ -1,5 +1,6 @@
 //intera classe realizzata da Bucsai Alex
-public class Itinerario {
+import java.io.Serializable;
+public class Itinerario implements Serializable {
 
 
 //attributi:
