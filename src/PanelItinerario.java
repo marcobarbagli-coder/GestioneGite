@@ -24,7 +24,7 @@ public class PanelItinerario extends JPanel {
 
     //costruttore:
 
-    public PanelItinerario() {
+    public PanelItinerario(ItinerarioService itinerarioService) {
 
         setLayout(new BorderLayout());
 
@@ -179,6 +179,10 @@ public class PanelItinerario extends JPanel {
 
             pulisciCampi();
         });
+    }
+
+    public PanelItinerario() {
+
     }
 
     // ---------------- METODO PULISCI ----------------
