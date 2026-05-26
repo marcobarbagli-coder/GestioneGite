@@ -1,3 +1,10 @@
+/*
+COPYRIGHT (c) 2013 MySoft snc. All Rights Res.
+Classe che definisce le operazione che coinvolgono gli oggetti prenotazione
+@aithor Barbagli Marco
+@version 1.0
+*/
+
 import java.util.ArrayList;
 
 public class PrenotazioneService {
