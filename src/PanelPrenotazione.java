@@ -101,8 +101,7 @@ public class PanelPrenotazione extends JPanel {
 
         // ===== AGGIUNTA: caricamento prenotazioni =====
 
-        ArrayList<Prenotazione> lista =
-                FileManager.caricaPrenotazioni("prenotazioni.dat");
+        ArrayList<Prenotazione> lista = prenotazioneService.getPrenotazioni();
 
         for (Prenotazione p : lista) {
 

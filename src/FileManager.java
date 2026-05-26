@@ -5,131 +5,83 @@ Classe che si occupa delle funzioni di salvataggio e caricamento dati
 @version 1.0
 */
 
+//importazione
 import java.io.*;
 import java.util.ArrayList;
 
 public class FileManager {
 
-    // ---------------- SALVATAGGIO ALUNNI ----------------
 
-    public static void salvaAlunni(
-            ArrayList<Alunno> alunni,
-            String nomeFile) {
+    public static void salvaAlunni(ArrayList<Alunno> alunni, String nomeFile) {
 
         try {
 
-            ObjectOutputStream oos =
-                    new ObjectOutputStream(
-                            new FileOutputStream(nomeFile)
-                    );
-
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(nomeFile));    //crazione stream per il salvataggio in file
             oos.writeObject(alunni);
-
             oos.close();
-
-            System.out.println(
-                    "Alunni salvati correttamente"
-            );
+            System.out.println("Alunni salvati correttamente");
 
         } catch (Exception e) {
 
-            System.out.println(
-                    "Errore salvataggio alunni"
-            );
-
+            System.out.println("Errore salvataggio alunni");
             e.printStackTrace();
         }
     }
 
-    // ---------------- CARICAMENTO ALUNNI ----------------
 
-    public static ArrayList<Alunno> caricaAlunni(
-            String nomeFile) {
+    public static ArrayList<Alunno> caricaAlunni(String nomeFile) {
 
         try {
 
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(nomeFile));
-
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(nomeFile));       //crazione stream per il salvataggio in file
+            
             ArrayList<Alunno> alunni = (ArrayList<Alunno>) ois.readObject();
-
             ois.close();
-
-            System.out.println(
-                    "Alunni caricati correttamente"
-            );
+            System.out.println("Alunni caricati correttamente");
 
             return alunni;
 
         } catch (Exception e) {
 
-            System.out.println(
-                    "Errore caricamento alunni"
-            );
-
+            System.out.println("Errore caricamento alunni");
             return new ArrayList<>();
         }
     }
 
-    // ---------------- SALVATAGGIO ITINERARI ----------------
 
-    public static void salvaItinerari(
-            ArrayList<Itinerario> itinerari,
-            String nomeFile) {
+    public static void salvaItinerari(ArrayList<Itinerario> itinerari,String nomeFile) {
 
         try {
 
-            ObjectOutputStream oos =
-                    new ObjectOutputStream(
-                            new FileOutputStream(nomeFile)
-                    );
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(nomeFile));
 
             oos.writeObject(itinerari);
-
             oos.close();
-
-            System.out.println(
-                    "Itinerari salvati correttamente"
-            );
+            System.out.println("Itinerari salvati correttamente");
 
         } catch (Exception e) {
 
-            System.out.println(
-                    "Errore salvataggio itinerari"
-            );
-
+            System.out.println("Errore salvataggio itinerari");
             e.printStackTrace();
         }
     }
 
-    // ---------------- CARICAMENTO ITINERARI ----------------
 
-    public static ArrayList<Itinerario> caricaItinerari(
-            String nomeFile) {
+    public static ArrayList<Itinerario> caricaItinerari(String nomeFile) {
 
         try {
 
-            ObjectInputStream ois =
-                    new ObjectInputStream(
-                            new FileInputStream(nomeFile)
-                    );
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(nomeFile));
 
-            ArrayList<Itinerario> itinerari =
-                    (ArrayList<Itinerario>) ois.readObject();
-
+            ArrayList<Itinerario> itinerari =(ArrayList<Itinerario>) ois.readObject();
             ois.close();
-
-            System.out.println(
-                    "Itinerari caricati correttamente"
-            );
+            System.out.println("Itinerari caricati correttamente");
 
             return itinerari;
 
         } catch (Exception e) {
 
-            System.out.println(
-                    "Errore caricamento itinerari"
-            );
-
+            System.out.println("Errore caricamento itinerari");
             return new ArrayList<>();
         }
     }
