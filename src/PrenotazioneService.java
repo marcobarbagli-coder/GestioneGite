@@ -1,3 +1,4 @@
+
 /**
  * Classe per la gestione delle prenotazioni delle gite scolastiche.
  * Fornisce operazioni di creazione, ricerca, annullamento e modifica
@@ -5,6 +6,15 @@
  * @author Barbagli Marco
  * @version 1.00 2026-05-26
  */
+
+/*
+COPYRIGHT (c) 2013 MySoft snc. All Rights Res.
+Classe che definisce le operazione che coinvolgono gli oggetti prenotazione
+@aithor Barbagli Marco
+@version 1.0
+*/
+
+
 import java.util.ArrayList;
 public class PrenotazioneService {
 

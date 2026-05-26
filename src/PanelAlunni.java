@@ -1,3 +1,10 @@
+/*
+COPYRIGHT (c) 2013 MySoft snc. All Rights Res.
+Classe che definisce l'interfaccia con la quale l'utente interagisce con le liste e gli oggetti Alunno
+@aithor Alex Bucsai
+@version 1.0
+*/
+
 import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;

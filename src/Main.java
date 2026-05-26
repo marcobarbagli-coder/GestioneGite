@@ -1,3 +1,10 @@
+/*
+COPYRIGHT (c) 2013 MySoft snc. All Rights Res.
+Classe Main che si occupa delle funzioni principali di salvataggio e caricamento dati e avvio della GUI
+@aithor Alex Bucsai, Marco  Barbagli 
+@version 1.0
+*/
+
 import javax.swing.*;
 
 public class Main {

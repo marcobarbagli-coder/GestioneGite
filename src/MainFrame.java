@@ -1,3 +1,10 @@
+/*
+COPYRIGHT (c) 2013 MySoft snc. All Rights Res.
+Classe Main che si occupa di collegare e far in modo che gli altri panel siano collegsti tramite un menu
+@aithor Alex Bucsai, Marco  Barbagli 
+@version 1.0
+*/
+
 import java.awt.*;
 import javax.swing.*;
 
