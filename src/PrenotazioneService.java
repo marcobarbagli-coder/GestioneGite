@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-/**
+/*
  * COPYRIGHT (c) 2013 MySoft snc. All Rights Res.
  * Classe per la gestione delle prenotazioni delle gite scolastiche.
  * Fornisce operazioni di creazione, ricerca, annullamento e modifica
