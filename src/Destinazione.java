@@ -1,4 +1,9 @@
-//intera classe realizzata da Barbagli Marco
+/*
+COPYRIGHT (c) 2013 MySoft snc. All Rights Res.
+Classe che definisce l'oggetto Destinazione
+@aithor Marco Barbagli
+@version 1.0
+*/
 
 //importazione librerie:
 import java.io.Serializable;

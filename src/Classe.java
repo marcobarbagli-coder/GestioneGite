@@ -1,4 +1,9 @@
-//intera classe realizzata da Bucsai Alex
+/*
+COPYRIGHT (c) 2013 MySoft snc. All Rights Res.
+Classe che definisce l'oggetto Classe
+@aithor Alex Bucsai
+@version 1.0
+*/
 
 //importazione librerie:
 import java.util.ArrayList;

@@ -84,7 +84,7 @@ public class PrenotazioneService {
 
         for (Prenotazione p : prenotazioni) {
 
-            if (p.getId() == id) {
+            if (p.getIdPrenotazione() == id) {
                 return p;
             }
         }
