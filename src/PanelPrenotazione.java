@@ -1,8 +1,9 @@
 /*
 COPYRIGHT (c) 2013 MySoft snc. All Rights Res.
-Classe che definisce l'interfaccia con la quale l'utente interagisce con le liste e gli oggetti Prenotazione
-@aithor Alex Bucsai
-@version 1.0
+Classe che definisce l'oggetto Prenotazione, contenente itinerario,
+classi e partecipanti, con supporto al calcolo dei costi e all'annullamento.
+@author Alex Bucsai
+@version 1.00 2026-05-26
 */
 
 import java.awt.*;
@@ -10,25 +11,33 @@ import javax.swing.*;
 
 public class PanelPrenotazione extends JPanel {
 
-    private JLabel lblIdPrenotazione;
-    private JLabel lblIdItinerario;
-    private JLabel lblIdAlunni;
+    private JLabel lblIdPrenotazione;            // etichetta campo ID prenotazione
+    private JLabel lblIdItinerario;              // etichetta campo ID itinerario
+    private JLabel lblIdAlunni;                  // etichetta campo ID alunni
 
-    private JTextField txtIdPrenotazione;
-    private JTextField txtIdItinerario;
-    private JTextField txtIdAlunni;
+    private JTextField txtIdPrenotazione;        // campo di testo per l'ID prenotazione
+    private JTextField txtIdItinerario;          // campo di testo per l'ID itinerario
+    private JTextField txtIdAlunni;              // campo di testo per gli ID alunni separati da virgola
 
-    private JButton btnPrenota;
-    private JButton btnAnnulla;
-    private JButton btnPulisci;
+    private JButton btnPrenota;                  // bottone per confermare la prenotazione
+    private JButton btnAnnulla;                  // bottone per annullare una prenotazione esistente
+    private JButton btnPulisci;                  // bottone per svuotare i campi del form
 
-    private JTextArea areaOutput;
+    private JTextArea areaOutput;                // area di testo in sola lettura per visualizzare le prenotazioni
 
+    /**
+     * Costruisce il pannello grafico per la gestione delle prenotazioni.
+     * Inizializza il form di inserimento, l'area di output e i listener
+     * per i pulsanti Prenota, Annulla e Pulisci.
+     * @param prenotazioneService service per la gestione delle prenotazioni
+     * @param alunnoService       service per la ricerca degli alunni per ID
+     * @param itinerarioService   service per la ricerca degli itinerari per ID
+     */
     public PanelPrenotazione(PrenotazioneService prenotazioneService, AlunnoService alunnoService, ItinerarioService itinerarioService) {
 
         setLayout(new BorderLayout());
 
-        // ---------------- PANEL FORM ----------------
+        //   PANEL FORM     
 
         JPanel panelForm = new JPanel();
         panelForm.setBorder(BorderFactory.createTitledBorder("Gestione Prenotazioni"));
@@ -46,22 +55,22 @@ public class PanelPrenotazione extends JPanel {
         btnAnnulla = new JButton("Annulla prenotazione");
         btnPulisci = new JButton("Pulisci");
 
-        panelForm.add(lblIdPrenotazione); 
+        panelForm.add(lblIdPrenotazione);
         panelForm.add(txtIdPrenotazione);
 
-        panelForm.add(lblIdItinerario);  
-         panelForm.add(txtIdItinerario);
+        panelForm.add(lblIdItinerario);
+        panelForm.add(txtIdItinerario);
 
-        panelForm.add(lblIdAlunni);       
+        panelForm.add(lblIdAlunni);
         panelForm.add(txtIdAlunni);
 
-        panelForm.add(btnPrenota);        
+        panelForm.add(btnPrenota);
         panelForm.add(btnAnnulla);
 
-        panelForm.add(new JLabel(""));    
+        panelForm.add(new JLabel(""));
         panelForm.add(btnPulisci);
 
-        // ---------------- AREA OUTPUT ----------------
+        //   AREA OUTPUT     
 
         areaOutput = new JTextArea();
         areaOutput.setEditable(false);
@@ -71,14 +80,14 @@ public class PanelPrenotazione extends JPanel {
         add(panelForm, BorderLayout.NORTH);
         add(scroll, BorderLayout.CENTER);
 
-        // ---------------- CARICAMENTO DA SERVICE ----------------
+        //   CARICAMENTO DA SERVICE     
         // FIX: si usa il service già popolato da Main, non FileManager direttamente
 
         for (Prenotazione p : prenotazioneService.getPrenotazioni()) {
             mostraPrenotazione(p);
         }
 
-        // ---------------- EVENTO PRENOTA ----------------
+        //   EVENTO PRENOTA     
 
         btnPrenota.addActionListener(e -> {
 
@@ -94,14 +103,14 @@ public class PanelPrenotazione extends JPanel {
                     return;
                 }
 
-                // FIX: recupera l'itinerario dal service
+                // recupera l'itinerario dal service
                 Itinerario itinerario = itinerarioService.cercaPerId(idItinerario);
                 if (itinerario == null) {
                     JOptionPane.showMessageDialog(null, "Itinerario con ID " + idItinerario + " non trovato");
                     return;
                 }
 
-                // FIX: crea la prenotazione e aggiunge gli alunni tramite service
+                // crea la prenotazione e aggiunge gli alunni tramite service
                 Prenotazione nuova = new Prenotazione(idPrenotazione, itinerario);
 
                 for (String s : idAlunniStr) {
@@ -111,6 +120,7 @@ public class PanelPrenotazione extends JPanel {
                     int idAlunno = Integer.parseInt(trimmed);
                     Alunno a = alunnoService.cercaPerId(idAlunno);
 
+                    // notifica e interrompe se l'alunno non esiste nel service
                     if (a == null) {
                         JOptionPane.showMessageDialog(null, "Alunno con ID " + idAlunno + " non trovato");
                         return;
@@ -124,7 +134,7 @@ public class PanelPrenotazione extends JPanel {
                     return;
                 }
 
-                // FIX: salva nel service (che esegue anche le validazioni)
+                // salva nel service (che esegue anche le validazioni)
                 prenotazioneService.creaPrenotazione(nuova);
 
                 // verifica che sia stata salvata (creaPrenotazione può rifiutarla)
@@ -139,7 +149,7 @@ public class PanelPrenotazione extends JPanel {
             }
         });
 
-        // ---------------- EVENTO ANNULLA ----------------
+        //   EVENTO ANNULLA     
 
         btnAnnulla.addActionListener(e -> {
 
@@ -151,6 +161,7 @@ public class PanelPrenotazione extends JPanel {
 
                 String motivo = JOptionPane.showInputDialog(null, "Inserire motivo annullamento:");
 
+                // il motivo è obbligatorio per tracciare la causa dell'annullamento
                 if (motivo == null || motivo.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Motivo obbligatorio");
                     return;
@@ -163,7 +174,7 @@ public class PanelPrenotazione extends JPanel {
                     return;
                 }
 
-                // FIX: annulla tramite service
+                //  annulla tramite service
                 prenotazioneService.annullaPrenotazione(idPrenotazione, motivo);
 
                 areaOutput.append("\n*** PRENOTAZIONE " + idPrenotazione + " ANNULLATA ***\n");
@@ -177,13 +188,18 @@ public class PanelPrenotazione extends JPanel {
             }
         });
 
-        // ---------------- EVENTO PULISCI ----------------
+        //   EVENTO PULISCI     
 
         btnPulisci.addActionListener(e -> pulisciCampi());
     }
 
-    // ---------------- METODI PRIVATI ----------------
+    //  METODI PRIVATI  
 
+    /**
+     * Aggiunge nell'area di output il riepilogo formattato di una prenotazione,
+     * mostrando ID, destinazione, numero partecipanti, costo totale, acconto e stato.
+     * @param p prenotazione da visualizzare nell'area di output
+     */
     private void mostraPrenotazione(Prenotazione p) {
         areaOutput.append("\n========================\n");
         areaOutput.append("ID Prenotazione: " + p.getIdPrenotazione() + "\n");
@@ -195,6 +211,9 @@ public class PanelPrenotazione extends JPanel {
         areaOutput.append("========================\n");
     }
 
+    /**
+     * Svuota tutti i campi di testo del form di inserimento.
+     */
     private void pulisciCampi() {
         txtIdPrenotazione.setText("");
         txtIdItinerario.setText("");
