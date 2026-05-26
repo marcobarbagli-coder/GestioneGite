@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 /**
  * COPYRIGHT (c) 2013 MySoft snc. All Rights Res.
@@ -6,11 +7,11 @@
  * delle prenotazioni associate a itinerari e partecipanti.
  * @author Barbagli Marco
  * @version 1.00 2026-05-26
- *//
+ */
 
 
 
-import java.util.ArrayList;
+
 public class PrenotazioneService {
 
     private ArrayList<Prenotazione> prenotazioni; // lista di tutte le prenotazioni attive
