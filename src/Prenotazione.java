@@ -1,4 +1,9 @@
-//intera classse realizzata da Bucsai Alex
+/*
+COPYRIGHT (c) 2013 MySoft snc. All Rights Res.
+Classe che definisce l'oggetto Prenotazione
+@aithor Alex Bucsai
+@version 1.0
+*/
 
 //importazione librerie:
 import java.io.Serializable;
@@ -66,10 +71,10 @@ public class Prenotazione implements Serializable {
     
 //metodi getter e setter:
 
-    public int getId() {
+    public int getIdPrenotazione() {
         return id;
     }
-    public void setId(int id) {
+    public void setIdPrenotazione(int id) {
         this.id = id;
     }
 

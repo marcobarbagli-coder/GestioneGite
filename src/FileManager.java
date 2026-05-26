@@ -41,13 +41,9 @@ public class FileManager {
 
         try {
 
-            ObjectInputStream ois =
-                    new ObjectInputStream(
-                            new FileInputStream(nomeFile)
-                    );
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(nomeFile));
 
-            ArrayList<Alunno> alunni =
-                    (ArrayList<Alunno>) ois.readObject();
+            ArrayList<Alunno> alunni = (ArrayList<Alunno>) ois.readObject();
 
             ois.close();
 

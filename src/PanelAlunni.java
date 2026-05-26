@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.ArrayList;
 import javax.swing.*;
 
 public class PanelAlunni extends JPanel {
@@ -73,7 +74,7 @@ public class PanelAlunni extends JPanel {
         panelForm.add(btnAggiungi);
         panelForm.add(btnPulisci);
 
-        
+
         //area output:
 
         areaOutput = new JTextArea();
@@ -90,6 +91,41 @@ public class PanelAlunni extends JPanel {
 
         add(panelForm, BorderLayout.NORTH);
         add(scroll, BorderLayout.CENTER);
+
+
+        //caricamento alunni 
+
+        ArrayList<Alunno> lista = FileManager.caricaAlunni("alunni.dat");
+
+        for (Alunno a : lista) {
+
+            areaOutput.append(
+                    "\n========================\n"
+            );
+
+            areaOutput.append(
+                    "ID: " + a.getId() + "\n"
+            );
+
+            areaOutput.append(
+                    "Nome: " + a.getNome() + "\n"
+            );
+
+            areaOutput.append(
+                    "Cognome: " + a.getCognome() + "\n"
+            );
+
+            areaOutput.append(
+                    "Minorenne: "
+                            + (a.isMinorenne() ? "SI" : "NO")
+                            + "\n"
+            );
+
+            areaOutput.append(
+                    "========================\n"
+            );
+        }
+
 
         //evento bottone aggiungi:
 
@@ -134,6 +170,7 @@ public class PanelAlunni extends JPanel {
                 areaOutput.append(
                         "========================\n"
                 );
+
                 JOptionPane.showMessageDialog(
                         null,
                         "Alunno aggiunto correttamente"
@@ -158,9 +195,6 @@ public class PanelAlunni extends JPanel {
         });
     }
 
-    public PanelAlunni() {
-
-    }
 
 
     //metodo pulizia:
