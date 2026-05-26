@@ -6,7 +6,8 @@
  * delle prenotazioni associate a itinerari e partecipanti.
  * @author Barbagli Marco
  * @version 1.00 2026-05-26
- */
+ *//
+
 
 
 import java.util.ArrayList;
