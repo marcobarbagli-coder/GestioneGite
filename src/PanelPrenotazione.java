@@ -81,7 +81,7 @@ public class PanelPrenotazione extends JPanel {
         add(scroll, BorderLayout.CENTER);
 
         //   CARICAMENTO DA SERVICE     
-        // FIX: si usa il service già popolato da Main, non FileManager direttamente
+        //   si usa il service già popolato da Main, non FileManager direttamente
 
         for (Prenotazione p : prenotazioneService.getPrenotazioni()) {
             mostraPrenotazione(p);
