@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 /**
  * COPYRIGHT (c) 2013 MySoft snc. All Rights Res.
@@ -6,11 +7,11 @@
  * delle prenotazioni associate a itinerari e partecipanti.
  * @author Barbagli Marco
  * @version 1.00 2026-05-26
- *//
+ */
 
 
 
-import java.util.ArrayList;
+
 public class PrenotazioneService {
 
     private ArrayList<Prenotazione> prenotazioni; // lista di tutte le prenotazioni attive
@@ -53,6 +54,7 @@ public class PrenotazioneService {
             System.out.println("Numero partecipanti troppo alto");
             return;
         }
+
         // controllo autorizzazioni minorenni
         for (Alunno a : p.getPartecipanti()) {
             if (a.isMinorenne() && !a.isAutorizzazione()) {
@@ -67,8 +69,7 @@ public class PrenotazioneService {
         p.getItinerario().setPrenotato(true);
         prenotazioni.add(p);
         System.out.println("Prenotazione completata");
-        System.out.println("Acconto richiesto: "
-                + p.calcolaAcconto() + " €");
+        System.out.println("Acconto richiesto: " + p.calcolaAcconto() + " €");
     }
 
     //MOSTRA PRENOTAZIONI
@@ -143,12 +144,9 @@ public class PrenotazioneService {
         p.rimuoviPartecipante(a);
         System.out.println("Alunno rimosso");
         // nuovo saldo
-        double nuovoCosto =
-            p.calcolaCostoTotale();
-        System.out.println(
-            "Nuovo costo totale: "
-            + nuovoCosto + " €"
-        );
+        double nuovoCosto = p.calcolaCostoTotale();
+        System.out.println("Nuovo costo totale: "+ nuovoCosto + " €");
+
     }
 
     //NUMERO PRENOTAZIONI 
