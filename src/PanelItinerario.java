@@ -103,8 +103,7 @@ public class PanelItinerario extends JPanel {
 
         // ===== AGGIUNTA: caricamento itinerari =====
 
-        ArrayList<Itinerario> lista =
-                FileManager.caricaItinerari("itinerari.dat");
+        ArrayList<Itinerario> lista = itinerarioService.getItinerari();
 
         for (Itinerario i : lista) {
 

@@ -102,8 +102,7 @@ public class PanelAlunni extends JPanel {
 
         //caricamento alunni 
 
-        ArrayList<Alunno> lista = FileManager.caricaAlunni("alunni.dat");
-
+        ArrayList<Alunno> lista = alunnoService.getAlunni();
         for (Alunno a : lista) {
 
             areaOutput.append(
