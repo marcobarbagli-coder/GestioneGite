@@ -6,21 +6,23 @@ Classe che definisce l'interfaccia con la quale l'utente interagisce con le list
 */
 
 import java.awt.*;
-import java.util.ArrayList;
 import javax.swing.*;
 
 public class PanelAlunni extends JPanel {
 
-//componenti:
-
-        //labels:
     private JLabel lblId;
     private JLabel lblNome;
     private JLabel lblCognome;
+    private JLabel lblEta;
+    private JLabel lblClasse;
+    private JLabel lblAnnoCorso;
 
     private JTextField txtId;
     private JTextField txtNome;
     private JTextField txtCognome;
+    private JTextField txtEta;
+    private JTextField txtClasse;
+    private JTextField txtAnnoCorso;
 
     private JCheckBox chkMinorenne;
 
@@ -29,188 +31,137 @@ public class PanelAlunni extends JPanel {
 
     private JTextArea areaOutput;
 
-
-//costruttore:
-
     public PanelAlunni(AlunnoService alunnoService) {
-
-//costruzione interfaccia:
 
         setLayout(new BorderLayout());
 
-        //form
+        // ---------------- PANEL FORM ----------------
+
         JPanel panelForm = new JPanel();
+        panelForm.setBorder(BorderFactory.createTitledBorder("Inserimento Alunno"));
+        panelForm.setLayout(new GridLayout(7, 2, 10, 10));
 
-        panelForm.setBorder(
-                BorderFactory.createTitledBorder("Inserimento Alunno")
-        );
-
-        panelForm.setLayout(new GridLayout(5, 2, 10, 10));
-
-        //labels
         lblId = new JLabel("ID:");
         lblNome = new JLabel("Nome:");
         lblCognome = new JLabel("Cognome:");
+        lblEta = new JLabel("Età:");
+        lblClasse = new JLabel("Classe:");
+        lblAnnoCorso = new JLabel("Anno corso:");
 
-        //textfields
         txtId = new JTextField();
         txtNome = new JTextField();
-        txtCognome = new JTextField();
+        txtCognome  = new JTextField();
+        txtEta = new JTextField();
+        txtClasse = new JTextField();
+        txtAnnoCorso = new JTextField();
 
-        //checkbox
-        chkMinorenne = new JCheckBox("Minorenne");
+        chkMinorenne = new JCheckBox("Minorenne (calcolato automaticamente dall'età)");
+        chkMinorenne.setEnabled(false);
 
-        //buttons
         btnAggiungi = new JButton("Aggiungi");
-        btnPulisci = new JButton("Pulisci");
+        btnPulisci  = new JButton("Pulisci");
 
-        //aggiunta componenti
-        panelForm.add(lblId);
+        panelForm.add(lblId);        
         panelForm.add(txtId);
 
-        panelForm.add(lblNome);
+        panelForm.add(lblNome);      
         panelForm.add(txtNome);
 
-        panelForm.add(lblCognome);
+        panelForm.add(lblCognome);   
         panelForm.add(txtCognome);
 
-        panelForm.add(new JLabel(""));
+        panelForm.add(lblEta);       
+        panelForm.add(txtEta);
 
-        panelForm.add(chkMinorenne);
+        panelForm.add(lblClasse);    
+        panelForm.add(txtClasse);
 
-        panelForm.add(btnAggiungi);
+        panelForm.add(lblAnnoCorso); 
+        panelForm.add(txtAnnoCorso);
+
+        panelForm.add(btnAggiungi);  
         panelForm.add(btnPulisci);
 
-
-        //area output:
+        // ---------------- AREA OUTPUT ----------------
 
         areaOutput = new JTextArea();
-
         areaOutput.setEditable(false);
-
         JScrollPane scroll = new JScrollPane(areaOutput);
-
-        scroll.setBorder(
-                BorderFactory.createTitledBorder("Elenco Alunni")
-        );
-
-        //aggiunta pannelli:
+        scroll.setBorder(BorderFactory.createTitledBorder("Elenco Alunni"));
 
         add(panelForm, BorderLayout.NORTH);
         add(scroll, BorderLayout.CENTER);
 
+        // ---------------- CARICAMENTO DA SERVICE ----------------
+        // FIX: si usa il service già popolato da Main, non FileManager direttamente
 
-        //caricamento alunni 
-
-        ArrayList<Alunno> lista = alunnoService.getAlunni();
-        for (Alunno a : lista) {
-
-            areaOutput.append(
-                    "\n========================\n"
-            );
-
-            areaOutput.append(
-                    "ID: " + a.getId() + "\n"
-            );
-
-            areaOutput.append(
-                    "Nome: " + a.getNome() + "\n"
-            );
-
-            areaOutput.append(
-                    "Cognome: " + a.getCognome() + "\n"
-            );
-
-            areaOutput.append(
-                    "Minorenne: "
-                            + (a.isMinorenne() ? "SI" : "NO")
-                            + "\n"
-            );
-
-            areaOutput.append(
-                    "========================\n"
-            );
+        for (Alunno a : alunnoService.getAlunni()) {
+            mostraAlunno(a);
         }
 
-
-        //evento bottone aggiungi:
+        // ---------------- EVENTO AGGIUNGI ----------------
 
         btnAggiungi.addActionListener(e -> {
 
             try {
 
-                int id = Integer.parseInt(txtId.getText());
+                int id = Integer.parseInt(txtId.getText().trim());
+                String nome = txtNome.getText().trim();
+                String cognome = txtCognome.getText().trim();
+                int eta = Integer.parseInt(txtEta.getText().trim());
+                String classe = txtClasse.getText().trim();
+                int annoCorso = Integer.parseInt(txtAnnoCorso.getText().trim());
 
-                String nome = txtNome.getText();
-                String cognome = txtCognome.getText();
-
-                boolean minorenne = chkMinorenne.isSelected();
-
-                // controlli
-                if (nome.isEmpty() || cognome.isEmpty()) {
-                    JOptionPane.showMessageDialog(
-                            null,
-                            "Compilare tutti i campi"
-                    );
+                if (nome.isEmpty() || cognome.isEmpty() || classe.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Compilare tutti i campi");
                     return;
                 }
 
-                // output
-                areaOutput.append(
-                        "\n========================\n"
-                );
-                areaOutput.append(
-                        "ID: " + id + "\n"
-                );
-                areaOutput.append(
-                        "Nome: " + nome + "\n"
-                );
-                areaOutput.append(
-                        "Cognome: " + cognome + "\n"
-                );
-                areaOutput.append(
-                        "Minorenne: "
-                                + (minorenne ? "SI" : "NO")
-                                + "\n"
-                );
-                areaOutput.append(
-                        "========================\n"
-                );
+                // FIX: controlla ID duplicato
+                if (alunnoService.cercaPerId(id) != null) {
+                    JOptionPane.showMessageDialog(null, "ID già esistente");
+                    return;
+                }
 
-                JOptionPane.showMessageDialog(
-                        null,
-                        "Alunno aggiunto correttamente"
-                );
+                // FIX: crea l'oggetto e lo salva nel service
+                Alunno nuovo = new Alunno(id, nome, cognome, eta, classe, annoCorso);
+                alunnoService.aggiungiAlunno(nuovo);
 
+                mostraAlunno(nuovo);
+
+                JOptionPane.showMessageDialog(null, "Alunno aggiunto correttamente");
                 pulisciCampi();
 
             } catch (Exception ex) {
-
-                JOptionPane.showMessageDialog(
-                        null,
-                        "ID non valido"
-                );
+                JOptionPane.showMessageDialog(null,"errore");
             }
         });
 
-        //evento bottoni pulisci:
+        // ---------------- EVENTO PULISCI ----------------
 
-        btnPulisci.addActionListener(e -> {
-
-            pulisciCampi();
-        });
+        btnPulisci.addActionListener(e -> pulisciCampi());
     }
 
+    // ---------------- METODI PRIVATI ----------------
 
-
-    //metodo pulizia:
+    private void mostraAlunno(Alunno a) {
+        areaOutput.append("\n========================\n");
+        areaOutput.append("ID: " + a.getId() + "\n");
+        areaOutput.append("Nome: " + a.getNome() + "\n");
+        areaOutput.append("Cognome: " + a.getCognome() + "\n");
+        areaOutput.append("Età: "+ a.getEta() + "\n");
+        areaOutput.append("Classe: " + a.getClasse()  + "\n");
+        areaOutput.append("Minorenne: " + (a.isMinorenne() ? "SI" : "NO") + "\n");
+        areaOutput.append("========================\n");
+    }
 
     private void pulisciCampi() {
-
         txtId.setText("");
         txtNome.setText("");
         txtCognome.setText("");
-
+        txtEta.setText("");
+        txtClasse.setText("");
+        txtAnnoCorso.setText("");
         chkMinorenne.setSelected(false);
     }
 }

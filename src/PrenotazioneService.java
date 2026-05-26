@@ -35,39 +35,21 @@ public class PrenotazioneService {
         int numero = p.numeroPartecipanti();
 
         if (numero < p.getItinerario().getMinPartecipanti()) {
-
             System.out.println("Numero partecipanti troppo basso");
             return;
         }
 
         if (numero > p.getItinerario().getMaxPartecipanti()) {
-
             System.out.println("Numero partecipanti troppo alto");
             return;
-        }
-
-        // controllo autorizzazioni minorenni
-        for (Alunno a : p.getPartecipanti()) {
-
-            if (a.isMinorenne() && !a.isAutorizzazione()) {
-
-                System.out.println(
-                    "Autorizzazione mancante per: "
-                    + a.getNome()
-                );
-
-                return;
-            }
         }
 
         // imposta itinerario prenotato
         p.getItinerario().setPrenotato(true);
 
         prenotazioni.add(p);
-
         System.out.println("Prenotazione completata");
-        System.out.println("Acconto richiesto: "
-                + p.calcolaAcconto() + " €");
+        System.out.println("Acconto richiesto: " + p.calcolaAcconto() + " €");
     }
 
     // ---------------- MOSTRA PRENOTAZIONI ----------------
@@ -75,11 +57,9 @@ public class PrenotazioneService {
     public void mostraPrenotazioni() {
 
         if (prenotazioni.isEmpty()) {
-
             System.out.println("Nessuna prenotazione presente");
             return;
         }
-
         for (Prenotazione p : prenotazioni) {
             System.out.println(p);
         }
@@ -106,13 +86,11 @@ public class PrenotazioneService {
         Prenotazione p = cercaPerId(id);
 
         if (p == null) {
-
             System.out.println("Prenotazione non trovata");
             return;
         }
 
         p.annullaGita(motivo);
-
         System.out.println("Prenotazione annullata");
     }
 
@@ -123,29 +101,21 @@ public class PrenotazioneService {
         Prenotazione p = cercaPerId(idPrenotazione);
 
         if (p == null) {
-
             System.out.println("Prenotazione non trovata");
             return;
         }
 
         if (!p.getPartecipanti().contains(a)) {
-
             System.out.println("Alunno non presente");
             return;
         }
 
         p.rimuoviPartecipante(a);
-
         System.out.println("Alunno rimosso");
 
         // nuovo saldo
-        double nuovoCosto =
-                p.calcolaCostoTotale();
-
-        System.out.println(
-            "Nuovo costo totale: "
-            + nuovoCosto + " €"
-        );
+        double nuovoCosto = p.calcolaCostoTotale();
+        System.out.println("Nuovo costo totale: "+ nuovoCosto + " €");
     }
 
     // ---------------- NUMERO PRENOTAZIONI ----------------

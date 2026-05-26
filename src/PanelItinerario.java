@@ -6,31 +6,40 @@ Classe che definisce l'interfaccia con la quale l'utente interagisce con le list
 */
 
 import java.awt.*;
-import java.util.ArrayList;
 import javax.swing.*;
 
 public class PanelItinerario extends JPanel {
 
-    //componenti:
-
     private JLabel lblId;
-    private JLabel lblDestinazione;
+    private JLabel lblNome;
+    private JLabel lblRegione;
+    private JLabel lblNazione;
     private JLabel lblGiorni;
     private JLabel lblTipo;
     private JLabel lblCosto;
+    private JLabel lblMin;
+    private JLabel lblMax;
+    private JLabel lblAnnoCorso;
+    private JLabel lblDescrizione;
+    private JLabel lblOptional;
 
     private JTextField txtId;
-    private JTextField txtDestinazione;
+    private JTextField txtNome;
+    private JTextField txtRegione;
+    private JTextField txtNazione;
     private JTextField txtGiorni;
     private JTextField txtTipo;
     private JTextField txtCosto;
+    private JTextField txtMin;
+    private JTextField txtMax;
+    private JTextField txtAnnoCorso;
+    private JTextField txtDescrizione;
+    private JTextField txtOptional;
 
     private JButton btnAggiungi;
     private JButton btnPulisci;
 
     private JTextArea areaOutput;
-
-    //costruttore:
 
     public PanelItinerario(ItinerarioService itinerarioService) {
 
@@ -39,107 +48,93 @@ public class PanelItinerario extends JPanel {
         // ---------------- PANEL FORM ----------------
 
         JPanel panelForm = new JPanel();
+        panelForm.setBorder(BorderFactory.createTitledBorder("Inserimento Itinerario"));
+        panelForm.setLayout(new GridLayout(13, 2, 10, 10));
 
-        panelForm.setBorder(
-                BorderFactory.createTitledBorder("Inserimento Itinerario")
-        );
-
-        panelForm.setLayout(new GridLayout(6, 2, 10, 10));
-
-        // label
         lblId = new JLabel("ID:");
-        lblDestinazione = new JLabel("Destinazione:");
+        lblNome = new JLabel("Nome destinazione:");
+        lblRegione = new JLabel("Regione:");
+        lblNazione = new JLabel("Nazione:");
         lblGiorni = new JLabel("Giorni:");
         lblTipo = new JLabel("Tipo:");
-        lblCosto = new JLabel("Costo:");
+        lblCosto = new JLabel("Costo (€):");
+        lblMin = new JLabel("Min partecipanti:");
+        lblMax = new JLabel("Max partecipanti:");
+        lblAnnoCorso = new JLabel("Anno corso:");
+        lblDescrizione = new JLabel("Descrizione:");
+        lblOptional = new JLabel("Optional:");
 
-        // textfield
         txtId = new JTextField();
-        txtDestinazione = new JTextField();
+        txtNome = new JTextField();
+        txtRegione = new JTextField();
+        txtNazione = new JTextField();
         txtGiorni = new JTextField();
         txtTipo = new JTextField();
         txtCosto = new JTextField();
+        txtMin = new JTextField();
+        txtMax = new JTextField();
+        txtAnnoCorso = new JTextField();
+        txtDescrizione = new JTextField();
+        txtOptional  = new JTextField();
 
-        // bottoni
         btnAggiungi = new JButton("Aggiungi");
         btnPulisci = new JButton("Pulisci");
 
-        // aggiunta componenti
-        panelForm.add(lblId);
+        panelForm.add(lblId);          
         panelForm.add(txtId);
 
-        panelForm.add(lblDestinazione);
-        panelForm.add(txtDestinazione);
+        panelForm.add(lblNome);        
+        panelForm.add(txtNome);
 
-        panelForm.add(lblGiorni);
+        panelForm.add(lblRegione);     
+        panelForm.add(txtRegione);
+
+        panelForm.add(lblNazione);     
+        panelForm.add(txtNazione);
+
+        panelForm.add(lblGiorni);      
         panelForm.add(txtGiorni);
 
-        panelForm.add(lblTipo);
+        panelForm.add(lblTipo);        
         panelForm.add(txtTipo);
 
-        panelForm.add(lblCosto);
+        panelForm.add(lblCosto);       
         panelForm.add(txtCosto);
 
-        panelForm.add(btnAggiungi);
+        panelForm.add(lblMin);         
+        panelForm.add(txtMin);
+
+        panelForm.add(lblMax);         
+        panelForm.add(txtMax);
+
+        panelForm.add(lblAnnoCorso);   
+        panelForm.add(txtAnnoCorso);
+
+        panelForm.add(lblDescrizione);
+        panelForm.add(txtDescrizione);
+
+        panelForm.add(lblOptional);    
+        panelForm.add(txtOptional);
+
+        panelForm.add(btnAggiungi);    
         panelForm.add(btnPulisci);
 
         // ---------------- AREA OUTPUT ----------------
 
         areaOutput = new JTextArea();
-
         areaOutput.setEditable(false);
-
         JScrollPane scroll = new JScrollPane(areaOutput);
-
-        scroll.setBorder(
-                BorderFactory.createTitledBorder("Elenco Itinerari")
-        );
-
-        // ---------------- AGGIUNTA PANNELLI ----------------
+        scroll.setBorder(BorderFactory.createTitledBorder("Elenco Itinerari"));
 
         add(panelForm, BorderLayout.NORTH);
         add(scroll, BorderLayout.CENTER);
 
+        // ---------------- CARICAMENTO DA SERVICE ----------------
+        // FIX: si usa il service già popolato da Main, non FileManager direttamente
 
-        // ===== AGGIUNTA: caricamento itinerari =====
-
-        ArrayList<Itinerario> lista = itinerarioService.getItinerari();
-
-        for (Itinerario i : lista) {
-
-            areaOutput.append(
-                    "\n========================\n"
-            );
-
-            areaOutput.append(
-                    "ID: " + i.getId() + "\n"
-            );
-
-            areaOutput.append(
-                    "Destinazione: "
-                            + i.getDestinazione() + "\n"
-            );
-
-            areaOutput.append(
-                    "Giorni: "
-                            + i.getGiorni() + "\n"
-            );
-
-            areaOutput.append(
-                    "Tipo: "
-                            + i.getTipo() + "\n"
-            );
-
-            areaOutput.append(
-                    "Costo: "
-                            + i.getCosto() + " €\n"
-            );
-
-            areaOutput.append(
-                    "========================\n"
-            );
+        for (Itinerario i : itinerarioService.getItinerari()) {
+            mostraItinerario(i);
         }
-
 
         // ---------------- EVENTO AGGIUNGI ----------------
 
@@ -147,101 +142,79 @@ public class PanelItinerario extends JPanel {
 
             try {
 
-                int id = Integer.parseInt(txtId.getText());
+                int id = Integer.parseInt(txtId.getText().trim());
+                String nome = txtNome.getText().trim();
+                String regione = txtRegione.getText().trim();
+                String nazione = txtNazione.getText().trim();
+                int giorni = Integer.parseInt(txtGiorni.getText().trim());
+                String tipo = txtTipo.getText().trim();
+                double costo = Double.parseDouble(txtCosto.getText().trim());
+                int min = Integer.parseInt(txtMin.getText().trim());
+                int max= Integer.parseInt(txtMax.getText().trim());
+                int annoCorso = Integer.parseInt(txtAnnoCorso.getText().trim());
+                String descrizione = txtDescrizione.getText().trim();
+                String optional = txtOptional.getText().trim();
 
-                String destinazione = txtDestinazione.getText();
-
-                int giorni = Integer.parseInt(
-                        txtGiorni.getText()
-                );
-
-                String tipo = txtTipo.getText();
-
-                double costo = Double.parseDouble(
-                        txtCosto.getText()
-                );
-
-                // controlli
-                if (destinazione.isEmpty()
-                        || tipo.isEmpty()) {
-
-                    JOptionPane.showMessageDialog(
-                            null,
-                            "Compilare tutti i campi"
-                    );
-
+                if (nome.isEmpty() || regione.isEmpty() || nazione.isEmpty() || tipo.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Compilare tutti i campi obbligatori");
                     return;
                 }
 
-                // output
-                areaOutput.append(
-                        "\n========================\n"
-                );
+                // FIX: crea Destinazione e Itinerario, poi salva nel service
+                Destinazione dest = new Destinazione(nome, regione, nazione);
+                Itinerario nuovo = new Itinerario(id, dest, giorni, tipo, descrizione, min, max, costo, annoCorso, optional, 
+                        false, 0);
 
-                areaOutput.append(
-                        "ID: " + id + "\n"
-                );
+                itinerarioService.aggiungiItinerario(nuovo);
 
-                areaOutput.append(
-                        "Destinazione: "
-                                + destinazione + "\n"
-                );
+                // aggiungiItinerario stampa eventuali errori (min>max, ecc.)
+                // verifichiamo che sia stato effettivamente aggiunto
+                if (itinerarioService.cercaPerId(id) != null) {
+                    mostraItinerario(nuovo);
+                    JOptionPane.showMessageDialog(null, "Itinerario aggiunto correttamente");
+                    pulisciCampi();
+                }
 
-                areaOutput.append(
-                        "Giorni: "
-                                + giorni + "\n"
-                );
-
-                areaOutput.append(
-                        "Tipo: "
-                                + tipo + "\n"
-                );
-
-                areaOutput.append(
-                        "Costo: "
-                                + costo + " €\n"
-                );
-
-                areaOutput.append(
-                        "========================\n"
-                );
-
-                JOptionPane.showMessageDialog(
-                        null,
-                        "Itinerario aggiunto"
-                );
-
-                pulisciCampi();
-
-            } catch (Exception ex) {
-
-                JOptionPane.showMessageDialog(
-                        null,
-                        "Inserire dati validi"
-                );
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Inserire valori numerici validi nei campi numerici");
             }
         });
 
         // ---------------- EVENTO PULISCI ----------------
 
-        btnPulisci.addActionListener(e -> {
-
-            pulisciCampi();
-        });
+        btnPulisci.addActionListener(e -> pulisciCampi());
     }
 
-    public PanelItinerario() {
+    // Costruttore vuoto richiesto da PanelItinerario()
+    public PanelItinerario() {}
 
+    // ---------------- METODI PRIVATI ----------------
+
+    private void mostraItinerario(Itinerario i) {
+        areaOutput.append("\n========================\n");
+        areaOutput.append("ID: " + i.getId() + "\n");
+        areaOutput.append("Destinazione: "+ i.getDestinazione().getNome() + "\n");
+        areaOutput.append("Regione: " + i.getDestinazione().getRegione() + "\n");
+        areaOutput.append("Nazione: " + i.getDestinazione().getNazione() + "\n");
+        areaOutput.append("Giorni: " + i.getGiorni() + "\n");
+        areaOutput.append("Tipo: " + i.getTipo() + "\n");
+        areaOutput.append("Costo: " + i.getCosto() + " €" + "\n");
+        areaOutput.append("Min/Max: " + i.getMinPartecipanti() + " / " + i.getMaxPartecipanti() + "\n");
+        areaOutput.append("========================\n");
     }
-
-    // ---------------- METODO PULISCI ----------------
 
     private void pulisciCampi() {
-
         txtId.setText("");
-        txtDestinazione.setText("");
+        txtNome.setText("");
+        txtRegione.setText("");
+        txtNazione.setText("");
         txtGiorni.setText("");
         txtTipo.setText("");
         txtCosto.setText("");
+        txtMin.setText("");
+        txtMax.setText("");
+        txtAnnoCorso.setText("");
+        txtDescrizione.setText("");
+        txtOptional.setText("");
     }
 }
