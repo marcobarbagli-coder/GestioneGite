@@ -6,30 +6,23 @@ Classe che definisce l'interfaccia con la quale l'utente interagisce con le list
 */
 
 import java.awt.*;
-import java.util.ArrayList;
 import javax.swing.*;
 
 public class PanelPrenotazione extends JPanel {
 
-    // ---------------- COMPONENTI ----------------
-
     private JLabel lblIdPrenotazione;
-    private JLabel lblClasse;
-    private JLabel lblDestinazione;
-    private JLabel lblPartecipanti;
+    private JLabel lblIdItinerario;
+    private JLabel lblIdAlunni;
 
     private JTextField txtIdPrenotazione;
-    private JTextField txtClasse;
-    private JTextField txtDestinazione;
-    private JTextField txtPartecipanti;
+    private JTextField txtIdItinerario;
+    private JTextField txtIdAlunni;
 
     private JButton btnPrenota;
     private JButton btnAnnulla;
     private JButton btnPulisci;
 
     private JTextArea areaOutput;
-
-    // ---------------- COSTRUTTORE ----------------
 
     public PanelPrenotazione(PrenotazioneService prenotazioneService, AlunnoService alunnoService, ItinerarioService itinerarioService) {
 
@@ -38,104 +31,52 @@ public class PanelPrenotazione extends JPanel {
         // ---------------- PANEL FORM ----------------
 
         JPanel panelForm = new JPanel();
+        panelForm.setBorder(BorderFactory.createTitledBorder("Gestione Prenotazioni"));
+        panelForm.setLayout(new GridLayout(5, 2, 10, 10));
 
-        panelForm.setBorder(
-                BorderFactory.createTitledBorder("Gestione Prenotazioni")
-        );
-
-        panelForm.setLayout(new GridLayout(6, 2, 10, 10));
-
-        // label
         lblIdPrenotazione = new JLabel("ID Prenotazione:");
-        lblClasse = new JLabel("Classe:");
-        lblDestinazione = new JLabel("Destinazione:");
-        lblPartecipanti = new JLabel("Numero Partecipanti:");
+        lblIdItinerario = new JLabel("ID Itinerario:");
+        lblIdAlunni = new JLabel("ID Alunni (separati da virgola):");
 
-        // textfield
         txtIdPrenotazione = new JTextField();
-        txtClasse = new JTextField();
-        txtDestinazione = new JTextField();
-        txtPartecipanti = new JTextField();
+        txtIdItinerario = new JTextField();
+        txtIdAlunni = new JTextField();
 
-        // bottoni
         btnPrenota = new JButton("Prenota");
-        btnAnnulla = new JButton("Annulla");
+        btnAnnulla = new JButton("Annulla prenotazione");
         btnPulisci = new JButton("Pulisci");
 
-        // aggiunta componenti
-        panelForm.add(lblIdPrenotazione);
+        panelForm.add(lblIdPrenotazione); 
         panelForm.add(txtIdPrenotazione);
 
-        panelForm.add(lblClasse);
-        panelForm.add(txtClasse);
+        panelForm.add(lblIdItinerario);  
+         panelForm.add(txtIdItinerario);
 
-        panelForm.add(lblDestinazione);
-        panelForm.add(txtDestinazione);
+        panelForm.add(lblIdAlunni);       
+        panelForm.add(txtIdAlunni);
 
-        panelForm.add(lblPartecipanti);
-        panelForm.add(txtPartecipanti);
-
-        panelForm.add(btnPrenota);
+        panelForm.add(btnPrenota);        
         panelForm.add(btnAnnulla);
 
-        panelForm.add(new JLabel(""));
+        panelForm.add(new JLabel(""));    
         panelForm.add(btnPulisci);
 
         // ---------------- AREA OUTPUT ----------------
 
         areaOutput = new JTextArea();
-
         areaOutput.setEditable(false);
-
         JScrollPane scroll = new JScrollPane(areaOutput);
-
-        scroll.setBorder(
-                BorderFactory.createTitledBorder("Elenco Prenotazioni")
-        );
-
-        // ---------------- AGGIUNTA COMPONENTI ----------------
+        scroll.setBorder(BorderFactory.createTitledBorder("Elenco Prenotazioni"));
 
         add(panelForm, BorderLayout.NORTH);
         add(scroll, BorderLayout.CENTER);
 
+        // ---------------- CARICAMENTO DA SERVICE ----------------
+        // FIX: si usa il service già popolato da Main, non FileManager direttamente
 
-        // ===== AGGIUNTA: caricamento prenotazioni =====
-
-        ArrayList<Prenotazione> lista = prenotazioneService.getPrenotazioni();
-
-        for (Prenotazione p : lista) {
-
-            areaOutput.append(
-                    "\n========================\n"
-            );
-
-            areaOutput.append(
-                    "ID Prenotazione: "
-                            + p.getIdPrenotazione() + "\n"
-            );
-
-            areaOutput.append(
-                    "Classe: "
-                            + p.getClassi() + "\n"
-            );
-
-            /* 
-            areaOutput.append(
-                    "Destinazione: "
-                            + p.getDestinazione() + "\n"
-            );
-            */
-
-            areaOutput.append(
-                    "Partecipanti: "
-                            + p.getPartecipanti() + "\n"
-            );
-
-            areaOutput.append(
-                    "========================\n"
-            );
+        for (Prenotazione p : prenotazioneService.getPrenotazioni()) {
+            mostraPrenotazione(p);
         }
-
 
         // ---------------- EVENTO PRENOTA ----------------
 
@@ -143,96 +84,58 @@ public class PanelPrenotazione extends JPanel {
 
             try {
 
-                int id = Integer.parseInt(
-                        txtIdPrenotazione.getText()
-                );
+                int idPrenotazione = Integer.parseInt(txtIdPrenotazione.getText().trim());
+                int idItinerario = Integer.parseInt(txtIdItinerario.getText().trim());
+                String[] idAlunniStr = txtIdAlunni.getText().trim().split(",");
 
-                String classe = txtClasse.getText();
-
-                String destinazione =
-                        txtDestinazione.getText();
-
-                int partecipanti = Integer.parseInt(
-                        txtPartecipanti.getText()
-                );
-
-                // controlli
-                if (classe.isEmpty()
-                        || destinazione.isEmpty()) {
-
-                    JOptionPane.showMessageDialog(
-                            null,
-                            "Compilare tutti i campi"
-                    );
-
+                // controlla ID duplicato prenotazione
+                if (prenotazioneService.cercaPerId(idPrenotazione) != null) {
+                    JOptionPane.showMessageDialog(null, "ID prenotazione già esistente");
                     return;
                 }
 
-                // acconto esempio
-                double costoPersona = 200;
+                // FIX: recupera l'itinerario dal service
+                Itinerario itinerario = itinerarioService.cercaPerId(idItinerario);
+                if (itinerario == null) {
+                    JOptionPane.showMessageDialog(null, "Itinerario con ID " + idItinerario + " non trovato");
+                    return;
+                }
 
-                double totale =
-                        costoPersona * partecipanti;
+                // FIX: crea la prenotazione e aggiunge gli alunni tramite service
+                Prenotazione nuova = new Prenotazione(idPrenotazione, itinerario);
 
-                double acconto =
-                        totale * 0.10;
+                for (String s : idAlunniStr) {
+                    String trimmed = s.trim();
+                    if (trimmed.isEmpty()) continue;
 
-                // output
-                areaOutput.append(
-                        "\n========================\n"
-                );
+                    int idAlunno = Integer.parseInt(trimmed);
+                    Alunno a = alunnoService.cercaPerId(idAlunno);
 
-                areaOutput.append(
-                        "ID Prenotazione: "
-                                + id + "\n"
-                );
+                    if (a == null) {
+                        JOptionPane.showMessageDialog(null, "Alunno con ID " + idAlunno + " non trovato");
+                        return;
+                    }
 
-                areaOutput.append(
-                        "Classe: "
-                                + classe + "\n"
-                );
+                    nuova.aggiungiPartecipante(a);
+                }
 
-                areaOutput.append(
-                        "Destinazione: "
-                                + destinazione + "\n"
-                );
+                if (nuova.numeroPartecipanti() == 0) {
+                    JOptionPane.showMessageDialog(null, "Inserire almeno un alunno");
+                    return;
+                }
 
-                areaOutput.append(
-                        "Partecipanti: "
-                                + partecipanti + "\n"
-                );
+                // FIX: salva nel service (che esegue anche le validazioni)
+                prenotazioneService.creaPrenotazione(nuova);
 
-                areaOutput.append(
-                        "Costo Totale: "
-                                + totale + " €\n"
-                );
+                // verifica che sia stata salvata (creaPrenotazione può rifiutarla)
+                if (prenotazioneService.cercaPerId(idPrenotazione) != null) {
+                    mostraPrenotazione(nuova);
+                    JOptionPane.showMessageDialog(null, "Prenotazione effettuata\nAcconto: " + nuova.calcolaAcconto() + " €");
+                    pulisciCampi();
+                }
 
-                areaOutput.append(
-                        "Acconto 10%: "
-                                + acconto + " €\n"
-                );
-
-                areaOutput.append(
-                        "STATO: PRENOTATA\n"
-                );
-
-                areaOutput.append(
-                        "========================\n"
-                );
-
-                JOptionPane.showMessageDialog(
-                        null,
-                        "Prenotazione effettuata"
-                );
-
-                pulisciCampi();
-
-            } catch (Exception ex) {
-
-                JOptionPane.showMessageDialog(
-                        null,
-                        "Inserire dati validi"
-                );
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Inserire valori numerici validi");
             }
         });
 
@@ -240,48 +143,61 @@ public class PanelPrenotazione extends JPanel {
 
         btnAnnulla.addActionListener(e -> {
 
-            String motivo = JOptionPane.showInputDialog(
-                    null,
-                    "Inserire motivo annullamento"
-            );
+            try {
 
-            if (motivo != null
-                    && !motivo.isEmpty()) {
-
-                areaOutput.append(
-                        "\n*** PRENOTAZIONE ANNULLATA ***\n"
+                int idPrenotazione = Integer.parseInt(
+                        JOptionPane.showInputDialog(null, "Inserire ID prenotazione da annullare:")
                 );
 
-                areaOutput.append(
-                        "Motivo: " + motivo + "\n"
-                );
+                String motivo = JOptionPane.showInputDialog(null, "Inserire motivo annullamento:");
 
-                areaOutput.append(
-                        "******************************\n"
-                );
+                if (motivo == null || motivo.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Motivo obbligatorio");
+                    return;
+                }
 
-                JOptionPane.showMessageDialog(
-                        null,
-                        "Prenotazione annullata"
-                );
+                Prenotazione p = prenotazioneService.cercaPerId(idPrenotazione);
+
+                if (p == null) {
+                    JOptionPane.showMessageDialog(null, "Prenotazione non trovata");
+                    return;
+                }
+
+                // FIX: annulla tramite service
+                prenotazioneService.annullaPrenotazione(idPrenotazione, motivo);
+
+                areaOutput.append("\n*** PRENOTAZIONE " + idPrenotazione + " ANNULLATA ***\n");
+                areaOutput.append("Motivo: " + motivo + "\n");
+                areaOutput.append("******************************\n");
+
+                JOptionPane.showMessageDialog(null, "Prenotazione annullata");
+
+            } catch (NullPointerException ex) {
+                // l'utente ha premuto Annulla nel dialog
             }
         });
 
         // ---------------- EVENTO PULISCI ----------------
 
-        btnPulisci.addActionListener(e -> {
-
-            pulisciCampi();
-        });
+        btnPulisci.addActionListener(e -> pulisciCampi());
     }
 
-    // ---------------- METODO PULIZIA ----------------
+    // ---------------- METODI PRIVATI ----------------
+
+    private void mostraPrenotazione(Prenotazione p) {
+        areaOutput.append("\n========================\n");
+        areaOutput.append("ID Prenotazione: " + p.getIdPrenotazione() + "\n");
+        areaOutput.append("Destinazione: " + p.getItinerario().getDestinazione().getNome() + "\n");
+        areaOutput.append("Partecipanti: " + p.numeroPartecipanti() + "\n");
+        areaOutput.append("Costo totale: " + p.calcolaCostoTotale() + " €\n");
+        areaOutput.append("Acconto 10%: " + p.calcolaAcconto()     + " €\n");
+        areaOutput.append("Stato: " + (p.isAnnullata() ? "ANNULLATA" : "ATTIVA") + "\n");
+        areaOutput.append("========================\n");
+    }
 
     private void pulisciCampi() {
-
         txtIdPrenotazione.setText("");
-        txtClasse.setText("");
-        txtDestinazione.setText("");
-        txtPartecipanti.setText("");
+        txtIdItinerario.setText("");
+        txtIdAlunni.setText("");
     }
 }

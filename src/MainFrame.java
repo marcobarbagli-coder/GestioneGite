@@ -32,9 +32,9 @@ public class MainFrame extends JFrame {
                      ItinerarioService itinerarioService,
                      PrenotazioneService prenotazioneService) {
 
-        this.alunnoService        = alunnoService;
-        this.itinerarioService    = itinerarioService;
-        this.prenotazioneService  = prenotazioneService;
+        this.alunnoService = alunnoService;
+        this.itinerarioService = itinerarioService;
+        this.prenotazioneService = prenotazioneService;
 
         setTitle("Gestione Gite Scolastiche");
         setSize(900, 600);
@@ -49,10 +49,10 @@ public class MainFrame extends JFrame {
         panelMenu.setPreferredSize(new Dimension(200, 0));
         panelMenu.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        btnAlunni       = new JButton("Gestione Alunni");
-        btnItinerari    = new JButton("Gestione Itinerari");
+        btnAlunni = new JButton("Gestione Alunni");
+        btnItinerari = new JButton("Gestione Itinerari");
         btnPrenotazioni = new JButton("Gestione Prenotazioni");
-        btnEsci         = new JButton("Esci");
+        btnEsci = new JButton("Esci");
 
         panelMenu.add(btnAlunni);
         panelMenu.add(btnItinerari);
@@ -61,21 +61,19 @@ public class MainFrame extends JFrame {
 
         // ---------------- PANNELLO CENTRALE CON CARDLAYOUT ----------------
 
-        cardLayout  = new CardLayout();
+        cardLayout = new CardLayout();
         panelCentro = new JPanel(cardLayout);
 
-        panelCentro.add(new PanelAlunni(alunnoService),                          "alunni");
-        panelCentro.add(new PanelItinerario(itinerarioService),                   "itinerari");
-        panelCentro.add(new PanelPrenotazione(prenotazioneService,
-                alunnoService,
-                itinerarioService),                "prenotazioni");
+        panelCentro.add(new PanelAlunni(alunnoService), "alunni");
+        panelCentro.add(new PanelItinerario(itinerarioService), "itinerari");
+        panelCentro.add(new PanelPrenotazione(prenotazioneService, alunnoService, itinerarioService), "prenotazioni");
 
         // mostra alunni come schermata iniziale
         cardLayout.show(panelCentro, "alunni");
 
         // ---------------- AGGIUNTA COMPONENTI ----------------
 
-        add(panelMenu,   BorderLayout.WEST);
+        add(panelMenu, BorderLayout.WEST);
         add(panelCentro, BorderLayout.CENTER);
 
         // ---------------- EVENTI BOTTONI ----------------
@@ -94,12 +92,7 @@ public class MainFrame extends JFrame {
 
         btnEsci.addActionListener(e -> {
 
-            int scelta = JOptionPane.showConfirmDialog(
-                    this,
-                    "Vuoi uscire dal programma?",
-                    "Conferma uscita",
-                    JOptionPane.YES_NO_OPTION
-            );
+            int scelta = JOptionPane.showConfirmDialog(this,"Vuoi uscire dal programma?", "Conferma uscita", JOptionPane.YES_NO_OPTION);
 
             if (scelta == JOptionPane.YES_OPTION) {
                 System.exit(0);
