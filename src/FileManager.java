@@ -1,3 +1,10 @@
+/*
+COPYRIGHT (c) 2013 MySoft snc. All Rights Res.
+Classe che si occupa delle funzioni di salvataggio e caricamento dati
+@aithor Alex Bucsai, Marco  Barbagli 
+@version 1.0
+*/
+
 import java.io.*;
 import java.util.ArrayList;
 
