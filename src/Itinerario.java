@@ -1,11 +1,13 @@
-//intera classe realizzata da Bucsai Alex
+/*
+COPYRIGHT (c) 2013 MySoft snc. All Rights Res.
+Classe che definisce l'oggetto Itinerario
+@aithor Alex Bucsai
+@version 1.0
+*/
 
 import java.io.Serializable;
 
-
-
 public class Itinerario implements Serializable{
-
 
 
 //attributi:
@@ -128,22 +130,21 @@ public class Itinerario implements Serializable{
     }
 
 
-//metodo toString:
     @Override
     public String toString() {
-        return "Itinerario{" +
-                "id=" + id +
-                ", destinazione=" + destinazione +
-                ", giorni=" + giorni +
-                ", tipo='" + tipo + '\'' +
-                ", descrizione='" + descrizione + '\'' +
-                ", minPartecipanti=" + minPartecipanti +
-                ", maxPartecipanti=" + maxPartecipanti +
-                ", costo=" + costo +
-                ", annoCorso=" + annoCorso +
-                ", optional='" + optional + '\'' +
-                ", prenotato=" + prenotato +
-                '}';
+        return "Itinerario[" + 
+            "id=" + id + 
+            ", destinazione=" + destinazione + 
+            ", giorni=" + giorni + 
+            ", tipo='" + tipo + '\'' + 
+            ", descrizione='" + descrizione + '\'' + 
+            ", minPartecipanti=" + minPartecipanti + 
+            ", maxPartecipanti=" + maxPartecipanti + 
+            ", costo=" + costo +
+            ", annoCorso=" + annoCorso + 
+            ", optional='" + optional + '\'' + 
+            ", prenotato=" + prenotato +
+            "]";
     }
 }
 

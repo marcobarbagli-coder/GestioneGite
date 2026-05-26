@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.ArrayList;
 import javax.swing.*;
 
 public class PanelPrenotazione extends JPanel {
@@ -23,7 +24,7 @@ public class PanelPrenotazione extends JPanel {
 
     // ---------------- COSTRUTTORE ----------------
 
-    public PanelPrenotazione() {
+    public PanelPrenotazione(PrenotazioneService prenotazioneService, AlunnoService alunnoService, ItinerarioService itinerarioService) {
 
         setLayout(new BorderLayout());
 
@@ -89,6 +90,46 @@ public class PanelPrenotazione extends JPanel {
 
         add(panelForm, BorderLayout.NORTH);
         add(scroll, BorderLayout.CENTER);
+
+
+        // ===== AGGIUNTA: caricamento prenotazioni =====
+
+        ArrayList<Prenotazione> lista =
+                FileManager.caricaPrenotazioni("prenotazioni.dat");
+
+        for (Prenotazione p : lista) {
+
+            areaOutput.append(
+                    "\n========================\n"
+            );
+
+            areaOutput.append(
+                    "ID Prenotazione: "
+                            + p.getIdPrenotazione() + "\n"
+            );
+
+            areaOutput.append(
+                    "Classe: "
+                            + p.getClassi() + "\n"
+            );
+
+            /* 
+            areaOutput.append(
+                    "Destinazione: "
+                            + p.getDestinazione() + "\n"
+            );
+            */
+
+            areaOutput.append(
+                    "Partecipanti: "
+                            + p.getPartecipanti() + "\n"
+            );
+
+            areaOutput.append(
+                    "========================\n"
+            );
+        }
+
 
         // ---------------- EVENTO PRENOTA ----------------
 

@@ -3,13 +3,15 @@ public class AlunnoService {
 
     private ArrayList<Alunno> alunni;
 
-    // ---------------- COSTRUTTORE ----------------
+    //costruttore 
 
     public AlunnoService() {
         alunni = new ArrayList<>();
     }
 
-    // ---------------- AGGIUNGI ALUNNO ----------------
+    /*
+    
+    */
 
     public void aggiungiAlunno(Alunno a) {
 

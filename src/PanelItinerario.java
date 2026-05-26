@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.ArrayList;
 import javax.swing.*;
 
 public class PanelItinerario extends JPanel {
@@ -24,7 +25,7 @@ public class PanelItinerario extends JPanel {
 
     //costruttore:
 
-    public PanelItinerario() {
+    public PanelItinerario(ItinerarioService itinerarioService) {
 
         setLayout(new BorderLayout());
 
@@ -91,6 +92,48 @@ public class PanelItinerario extends JPanel {
 
         add(panelForm, BorderLayout.NORTH);
         add(scroll, BorderLayout.CENTER);
+
+
+        // ===== AGGIUNTA: caricamento itinerari =====
+
+        ArrayList<Itinerario> lista =
+                FileManager.caricaItinerari("itinerari.dat");
+
+        for (Itinerario i : lista) {
+
+            areaOutput.append(
+                    "\n========================\n"
+            );
+
+            areaOutput.append(
+                    "ID: " + i.getId() + "\n"
+            );
+
+            areaOutput.append(
+                    "Destinazione: "
+                            + i.getDestinazione() + "\n"
+            );
+
+            areaOutput.append(
+                    "Giorni: "
+                            + i.getGiorni() + "\n"
+            );
+
+            areaOutput.append(
+                    "Tipo: "
+                            + i.getTipo() + "\n"
+            );
+
+            areaOutput.append(
+                    "Costo: "
+                            + i.getCosto() + " €\n"
+            );
+
+            areaOutput.append(
+                    "========================\n"
+            );
+        }
+
 
         // ---------------- EVENTO AGGIUNGI ----------------
 
@@ -179,6 +222,10 @@ public class PanelItinerario extends JPanel {
 
             pulisciCampi();
         });
+    }
+
+    public PanelItinerario() {
+
     }
 
     // ---------------- METODO PULISCI ----------------

@@ -5,13 +5,13 @@ public class ItinerarioService {
 
     private ArrayList<Itinerario> itinerari;
 
-   
+
 
     public ItinerarioService() {
         itinerari = new ArrayList<>();
     }
 
-   
+
 
     public void aggiungiItinerario(Itinerario i) {
 
@@ -35,7 +35,7 @@ public class ItinerarioService {
         System.out.println("Itinerario aggiunto correttamente");
     }
 
-   
+
 
     public void mostraItinerari() {
 
@@ -49,7 +49,7 @@ public class ItinerarioService {
         }
     }
 
-    
+
 
     public Itinerario cercaPerId(int id) {
 
@@ -63,7 +63,7 @@ public class ItinerarioService {
         return null;
     }
 
-   
+
 
     public void cercaPerDestinazione(String nomeDestinazione) {
 
@@ -86,7 +86,7 @@ public class ItinerarioService {
         }
     }
 
-   
+
 
     public void modificaDescrizione(int id, String nuovaDescrizione) {
 
@@ -108,7 +108,7 @@ public class ItinerarioService {
         System.out.println("Descrizione aggiornata");
     }
 
-   
+
 
     public void eliminaItinerario(int id) {
 
