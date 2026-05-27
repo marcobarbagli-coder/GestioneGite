@@ -20,17 +20,7 @@ public class Alunno implements Serializable {
     private boolean autorizzazione; // true se il genitore ha fornito autorizzazione (richiesta solo per minorenni)
     private boolean rinunciaMedica; // true se è stata registrata una rinuncia medica
 
-    /**
-     * Costruisce un nuovo Alunno con i dati anagrafici e scolastici forniti.
-     * Il flag minorenne viene calcolato automaticamente in base all'età.
-     * Autorizzazione e rinuncia medica vengono inizializzate a false.
-     * @param id identificativo univoco dell'alunno
-     * @param nome nome dell'alunno
-     * @param cognome cognome dell'alunno
-     * @param eta età dell'alunno in anni
-     * @param classe classe scolastica di appartenenza
-     * @param annoCorso anno del corso scolastico
-     */
+    // metodo costruttore
     public Alunno(int id, String nome, String cognome, int eta, String classe, int annoCorso) {
         this.id = id;
         this.nome = nome;
@@ -45,26 +35,14 @@ public class Alunno implements Serializable {
 
     // metodi getter e setter
 
-    /**
-     * Restituisce l'id univoco dell'alunno
-     * @return id dell'alunno
-     */
     public int getId() {
         return id;
     }
 
-    /**
-     * Restituisce il nome dell'alunno
-     * @return nome dell'alunno
-     */
     public String getNome() {
         return nome;
     }
 
-    /**
-     * Restituisce il cognome dell'alunno
-     * @return cognome dell'alunno
-     */
     public String getCognome() {
         return cognome;
     }
@@ -78,90 +56,48 @@ public class Alunno implements Serializable {
         this.minorenne = eta < 18; // aggiornamento automatico del flag in base alla nuova età
     }
 
-    /**
-     * Restituisce l'età dell'alunno
-     * @return età in anni
-     */
+ 
     public int getEta() {
         return eta;
     }
 
-    /**
-     * Imposta la classe scolastica dell'alunno
-     * @param classe nuova classe scolastica
-     */
     public void setClasse(String classe) {
         this.classe = classe;
     }
 
-    /**
-     * Restituisce la classe scolastica dell'alunno
-     * @return classe scolastica
-     */
+
     public String getClasse() {
         return classe;
     }
 
-    /**
-     * Imposta l'anno del corso scolastico dell'alunno
-     * @param annoCorso nuovo anno del corso
-     */
     public void setAnnoCorso(int annoCorso) {
         this.annoCorso = annoCorso;
     }
 
-    /**
-     * Restituisce l'anno del corso scolastico dell'alunno
-     * @return anno del corso
-     */
     public int getAnnoCorso() {
         return annoCorso;
     }
 
-    /**
-     * Indica se l'alunno è minorenne (età inferiore a 18 anni)
-     * @return true se minorenne, false altrimenti
-     */
     public boolean isMinorenne() {
         return minorenne;
     }
 
-    /**
-     * Imposta lo stato di autorizzazione del genitore per l'alunno minorenne
-     * @param autorizzazione true se l'autorizzazione è stata concessa
-     */
     public void setAutorizzazione(boolean autorizzazione) {
         this.autorizzazione = autorizzazione;
     }
 
-    /**
-     * Indica se l'alunno ha ricevuto l'autorizzazione del genitore
-     * @return true se autorizzato, false altrimenti
-     */
     public boolean isAutorizzazione() {
         return autorizzazione;
     }
 
-    /**
-     * Imposta lo stato della rinuncia medica per l'alunno
-     * @param rinunciaMedica true se la rinuncia medica è stata registrata
-     */
     public void setRinunciaMedica(boolean rinunciaMedica) {
         this.rinunciaMedica = rinunciaMedica;
     }
 
-    /**
-     * Indica se è stata registrata una rinuncia medica per l'alunno
-     * @return true se la rinuncia medica è presente, false altrimenti
-     */
     public boolean isRinunciaMedica() {
         return rinunciaMedica;
     }
 
-    /**
-     * Restituisce una rappresentazione testuale completa dell'alunno
-     * @return stringa con id, nome, cognome, classe, età, minorenne, autorizzazione e rinuncia
-     */
     @Override
     public String toString() {
         return "ID: " + id +

@@ -28,36 +28,21 @@ public class Itinerario implements Serializable {
     // true se esiste almeno una prenotazione attiva per questo itinerario
     private boolean prenotato;
 
-    /*
-    Costruttore completo dell'itinerario.
-    @param id                  identificativo univoco
-    @param destinazione        oggetto Destinazione associato
-    @param giorni              durata in giorni
-    @param tipo                tipologia dell'itinerario (es. culturale, naturalistico)
-    @param descrizione         testo descrittivo
-    @param minPartecipanti     numero minimo di partecipanti richiesti
-    @param maxPartecipanti     numero massimo di partecipanti ammessi
-    @param costo               costo per singolo partecipante
-    @param annoCorso           anno scolastico di riferimento
-    @param optional            servizi opzionali inclusi
-    @param prenotato           stato di prenotazione dell'itinerario
-    @param numeroPartecipanti  numero attuale di partecipanti iscritti
-    */
     public Itinerario(int id, Destinazione destinazione, int giorni,
                       String tipo, String descrizione, int minPartecipanti,
                       int maxPartecipanti, double costo, int annoCorso,
                       String optional, boolean prenotato, int numeroPartecipanti) {
-        this.id                 = id;
-        this.destinazione       = destinazione;
-        this.giorni             = giorni;
-        this.tipo               = tipo;
-        this.descrizione        = descrizione;
-        this.minPartecipanti    = minPartecipanti;
-        this.maxPartecipanti    = maxPartecipanti;
-        this.costo              = costo;
-        this.annoCorso          = annoCorso;
-        this.optional           = optional;
-        this.prenotato          = prenotato;
+        this.id = id;
+        this.destinazione = destinazione;
+        this.giorni = giorni;
+        this.tipo = tipo;
+        this.descrizione = descrizione;
+        this.minPartecipanti = minPartecipanti;
+        this.maxPartecipanti = maxPartecipanti;
+        this.costo = costo;
+        this.annoCorso = annoCorso;
+        this.optional = optional;
+        this.prenotato  = prenotato;
         this.numeroPartecipanti = numeroPartecipanti;
     }
 

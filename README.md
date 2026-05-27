@@ -9,7 +9,7 @@ Permette di inserire e gestire itinerari con informazioni come destinazione, dur
 ##  Tecnologie utilizzate
 - Java
 - Java Swing 
-- File binari / Database 
+- File binari  
 - Git e GitHub per il controllo versione
 
 ---
